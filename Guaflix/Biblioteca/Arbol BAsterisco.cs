@@ -31,7 +31,7 @@ namespace Biblioteca
             {
                 NodoB<T> nuevo = new NodoB<T>(valor.FixedSizeText, Grado);
                 nuevo.Valores.Add(valor);
-                BWriter.Escribir()
+                BWriter.Escribir();
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Biblioteca
 
                 if (nuevo.Valores.Count == Grado)
                 {
-                    Ordenar
+                    
                 }
             }
         }

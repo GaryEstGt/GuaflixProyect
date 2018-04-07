@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "CargarArchivo";
+}
+
+<h2>CargarArchivo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+}
+@using (Html.BeginForm("CargarArchivo", "Configuracion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="postedFile" />
+    <input type="submit" value="Importar" />
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
