@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<Guaflix.Models.Pelicula>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "VerWL";
 }
 
-<h2>Index</h2>
+<h2>VerWL</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("Crear por Archivo", "CrearArchivo")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -47,7 +43,6 @@
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
-    @Html.ActionLink("Opciones", "Opciones")
 }
 
 </table>

@@ -7,8 +7,8 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("Crear por Archivo", "CrearArchivo")
+    @Html.ActionLink("Ver WatchList", "VerWL")
+    @Html.ActionLink("Busqueda", "buscar")
 </p>
 <table class="table">
     <tr>
@@ -42,12 +42,9 @@
             @Html.DisplayFor(modelItem => item.genero)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Agregar a WachtLst", "AgregarWL", new { /* id=item.PrimaryKey */ }) |
         </td>
     </tr>
-    @Html.ActionLink("Opciones", "Opciones")
 }
 
 </table>

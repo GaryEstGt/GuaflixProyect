@@ -109,6 +109,7 @@ namespace Guaflix.Controllers
             try
             {
                 string redir = "Configuracion";
+                string redir2 = "Opciones";
                 if (collection["Nombre"] == "admin")
                 {
                     if (collection["Contraseña"] == "admin")
@@ -118,9 +119,10 @@ namespace Guaflix.Controllers
                 }
                 else
                 {
-
+                    redir = "Catalogo";
+                    redir2 = "Index";
                 }
-                return RedirectToAction("Opciones",redir);
+                return RedirectToAction(redir2,redir);
             }
             catch
             {

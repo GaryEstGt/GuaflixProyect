@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccesoUsuarioController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -273,7 +274,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\AccesoUsuario\Create.cshtml" />
     <Content Include="Views\AccesoUsuario\LogIn.cshtml" />
-    <Content Include="Views\Configuracion\Index.cshtml" />
     <Content Include="Views\Configuracion\Opciones.cshtml" />
     <Content Include="Views\Configuracion\IndexUser.cshtml" />
     <Content Include="Views\Configuracion\Create.cshtml" />
@@ -281,6 +281,10 @@
     <Content Include="Views\Configuracion\CreateUser.cshtml" />
     <Content Include="Views\Configuracion\CargarArchivo.cshtml" />
     <Content Include="Views\Configuracion\Delete.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
+    <Content Include="Views\Catalogo\Index.cshtml" />
+    <Content Include="Views\Catalogo\buscar.cshtml" />
+    <Content Include="Views\Catalogo\VerWL.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<Guaflix.Models.Pelicula>
+
+@{
+    ViewBag.Title = "buscar";
+}
+
+<h2>buscar</h2>
+
+@using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
+{
+    @Html.TextBox("filter")
+
+    <input type="submit" name="tipobuscar" value="Nombre" />
+        <input type="submit" name="tipobuscar" value="Año" />
+        <input type="submit" name="tipobuscar" value="Genero" />
+}
+<p>
+
+
+
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.añoLanzamiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.genero)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.añoLanzamiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+        </tr>
+    }
+
+</table>

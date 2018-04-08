@@ -87,7 +87,7 @@ namespace Guaflix.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexUser");
             }
             catch
             {
@@ -171,7 +171,7 @@ namespace Guaflix.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexUser");
             }
             catch
             {
