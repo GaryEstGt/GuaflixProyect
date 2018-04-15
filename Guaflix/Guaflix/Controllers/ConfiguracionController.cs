@@ -1,4 +1,5 @@
 ﻿using Guaflix.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,9 +150,38 @@ namespace Guaflix.Controllers
         {
             try
             {
-                
 
-                return RedirectToAction("Index");
+                string todoeltexto = "";
+                string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    int contLinea = 0;
+                    string csvData = System.IO.File.ReadAllText(filePath);
+                    /* foreach (string row in csvData.Split('}'))
+                     {*/
+
+
+                    /* if (!string.IsNullOrEmpty(row))
+                     {*/
+                }
+                        Partido[] partido = JsonConvert.DeserializeObject<Partido[]>(csvData);
+                        if (partido.Length == 1)
+                        {
+                            Data<Partido>.instance.Arbol.Insertar(partido[0], Partido.CompareByPais1);
+                        }
+                       
+
+
+                    return RedirectToAction("Index");
             }
             catch
             {
