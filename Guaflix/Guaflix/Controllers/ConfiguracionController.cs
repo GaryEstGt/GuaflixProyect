@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -146,7 +147,7 @@ namespace Guaflix.Controllers
 
         // POST: Configuracion/Create
         [HttpPost]
-        public ActionResult CrearArchivo(FormCollection collection)
+        public ActionResult CrearArchivo(HttpPostedFileBase postedFile)
         {
             try
             {
@@ -172,12 +173,10 @@ namespace Guaflix.Controllers
 
                     /* if (!string.IsNullOrEmpty(row))
                      {*/
+                    Pelicula[] pelis = JsonConvert.DeserializeObject<Pelicula[]>(csvData);
                 }
-                        Partido[] partido = JsonConvert.DeserializeObject<Partido[]>(csvData);
-                        if (partido.Length == 1)
-                        {
-                            Data<Partido>.instance.Arbol.Insertar(partido[0], Partido.CompareByPais1);
-                        }
+                        
+                       
                        
 
 
