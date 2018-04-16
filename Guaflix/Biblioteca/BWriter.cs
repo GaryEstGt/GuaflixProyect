@@ -25,7 +25,7 @@ namespace Biblioteca
             EvaluarRuta(@"C:\Arboles\");
             using (var fs = new FileStream(@"C:\Arboles\" + archivo, FileMode.OpenOrCreate))
             {
-                fs.Seek(13, SeekOrigin.Begin);
+                fs.Seek(12, SeekOrigin.Begin);
                 fs.Write(ByteGenerator.ConvertToBytes(posicion + "\n"), 0, 12);
             }
         }
@@ -34,7 +34,7 @@ namespace Biblioteca
             EvaluarRuta(@"C:\Arboles\");
             using (var fs = new FileStream(@"C:\Arboles\" + archivo, FileMode.OpenOrCreate))
             {
-                fs.Seek(24 + ((posicion - 1) * NodoB<T>.FixedSize) + 1, SeekOrigin.Begin);
+                fs.Seek(24 + ((posicion - 1) * NodoB<T>.FixedSize), SeekOrigin.Begin);
                 fs.Write(ByteGenerator.ConvertToBytes(nodo), 0, NodoB<T>.FixedSize);            
             }
         }

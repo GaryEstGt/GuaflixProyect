@@ -8,16 +8,16 @@ namespace Guaflix.Models
 {
     public class Pelicula : IFixedSizeText
     {
-        public string tipo { get; set; }
-        public string nombre { get; set; }
-        public string añoLanzamiento { get; set; }
-        public string genero { get; set; }
+        public string type { get; set; }
+        public string name { get; set; }
+        public string year { get; set; }
+        public string genre { get; set; }
         public Pelicula(string Tipo, string Nombre, string Año, string Genero)
         {
-            tipo = Tipo;
-            nombre = Nombre;
-            añoLanzamiento = Año;
-            genero = Genero;
+            type = Tipo;
+            name = Nombre;
+            year = Año;
+            genre = Genero;
             FixedSize = 93;
             FixedSizeText = FixedSize;
         }
@@ -25,16 +25,12 @@ namespace Guaflix.Models
         public static int FixedSize { get; set; }
         public string ToFixedSizeString()
         {
-            return $"{string.Format("{0,-20}",tipo)}|{string.Format("{0,-40}", nombre)}|{string.Format("{0,-10}", añoLanzamiento)}|{string.Format("{0,-20}", genero)}";
+            return $"{string.Format("{0,-20}",type)}/{string.Format("{0,-40}", name)}/{string.Format("{0,-10}", year)}/{string.Format("{0,-20}", genre)}";
         }
 
         public string ToNullFormat()
         {
-            return $"                    |                                        |          |                    ";
-        }
-        public string type { get; set; }
-        public string name { get; set; }
-        public string year { get; set; }
-        public string genre { get; set; }
+            return $"                    /                                        /          /                    ";
+        }        
     }
 }

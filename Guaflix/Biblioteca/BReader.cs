@@ -11,21 +11,21 @@ namespace Biblioteca
     {
         public static void LeerRaiz(string ruta, ref int raiz)
         {
-            var buffer = new byte[11];
+            var buffer = new byte[12];
             using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
-                fs.Read(buffer, 0, 11);
+                fs.Read(buffer, 0, 12);
             }
 
             raiz = int.Parse(ByteGenerator.ConvertToString(buffer));
         }
         public static void LeerPosicionDisponible(string ruta, ref int nuevaPosicion)
         {            
-            var buffer = new byte[11];
+            var buffer = new byte[12];
             using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
-                fs.Seek(12, SeekOrigin.Begin);
-                fs.Read(buffer, 0, 11);
+                fs.Seek(11, SeekOrigin.Begin);
+                fs.Read(buffer, 0, 12);
             }
 
             nuevaPosicion = int.Parse(ByteGenerator.ConvertToString(buffer));
@@ -35,7 +35,7 @@ namespace Biblioteca
             var buffer = new byte[NodoB<T>.FixedSize];
             using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
-                fs.Seek(24 + ((posicion - 1) * NodoB<T>.FixedSize), SeekOrigin.Begin);
+                fs.Seek(22 + ((posicion - 1) * NodoB<T>.FixedSize), SeekOrigin.Begin);
                 fs.Read(buffer, 0, NodoB<T>.FixedSize);
             }
 
