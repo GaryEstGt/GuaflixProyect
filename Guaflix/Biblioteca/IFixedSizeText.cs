@@ -9,7 +9,6 @@ namespace Biblioteca
     public interface IFixedSizeText
     {
         int FixedSizeText { get; set; }
-        string ToFixedSizeString();
-        string ToNullFormat();        
+        string ToFixedSizeString();          
     }
 }

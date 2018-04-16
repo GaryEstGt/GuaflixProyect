@@ -109,7 +109,22 @@ namespace Guaflix.Controllers
         public ActionResult LogIn(FormCollection collection)
         {
             try
-            {                
+            {
+                Pelicula peli1 = new Pelicula("Documental", "Albert Einstein", "2015", "Documental");
+                Pelicula peli2 = new Pelicula("Pelicula", "Insidious", "2013", "Terror");
+                //NodoB<Pelicula> nodo = new NodoB<Pelicula>(peli.FixedSizeText, 5) {posicion = 1};
+                //nodo.Valores[0] = peli;
+                //BWriter<Pelicula>.EscribirRaiz("prueba.txt", "00000000001");
+                //BWriter<Pelicula>.EscribirPosicionDisponible("prueba.txt", "00000000002");
+                //BWriter<Pelicula>.EscribirNodo("prueba.txt", nodo, 1);
+                //int raiz = 0, posicion = 0;
+                //BReader<Pelicula>.LeerRaiz("prueba.txt", ref raiz);
+                //BReader<Pelicula>.LeerPosicionDisponible("prueba.txt", ref posicion);
+                //string Nodo = BReader<Pelicula>.LeerNodo("prueba.txt", 1);
+
+                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(5, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
+                arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                arbol.Insertar(peli2, Pelicula.CompareByName, Pelicula.CompareByGenre);
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
                 if (collection["userName"] == "admin")
@@ -126,7 +141,7 @@ namespace Guaflix.Controllers
                 }
                 return RedirectToAction(redir2,redir);
             }
-            catch
+            catch(Exception e)
             {                
                 return View();
             }

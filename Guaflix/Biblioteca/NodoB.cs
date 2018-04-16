@@ -12,7 +12,7 @@ namespace Biblioteca
         public int posicion { get; set; }
         public int Padre { get; set; }
         public List<int> hijos { get; set; }
-        public T[] Valores { get; set; }
+        public T[] Valores { get; set; }        
         public static int FixedSize { get; set; }
         public int FixedSizeText { get; set; }
         public string ToFixedSizeString()
@@ -33,8 +33,8 @@ namespace Biblioteca
                     FixedString += $"{Valores[i].ToFixedSizeString()}";
                 }
                 else
-                {                    
-                    FixedString += $"{Valores[0].ToNullFormat()}";
+                {
+                    FixedString += $"{ArbolB<T>.ToTNullFormat()}";
                 }
 
                 if (i != Grado - 2)
@@ -46,26 +46,34 @@ namespace Biblioteca
             FixedString += "\n";
 
             return FixedString;
-        }
+        }     
 
-        public string ToNullFormat()
-        {
-            return null;
-        }
-
-        public NodoB(int tamañoValor, int grado)
+        public NodoB(int tamañoValor, int grado, int Posicion)
         {
             Grado = grado;
-            FixedSize = 2 + (2 * 11) + (Grado) + (Grado * 11) + (Grado - 1) + ((Grado - 1) * tamañoValor) + 1;
+            FixedSize = 2 + (2 * 11) + (Grado) + (Grado * 11) + (Grado - 1) + ((Grado - 1) * tamañoValor);
             FixedSizeText = FixedSize;
-            posicion = int.MinValue;
+            posicion = Posicion;
             Padre = int.MinValue;
             hijos = new List<int>(Grado);
             Valores = new T[Grado];            
+
             for (int i = 0; i < Grado; i++)
             {
                 hijos.Add(int.MinValue);                         
             }
         }
+
+        public NodoB(int Posicion, int padre, List<int> Hijos, T[] valores, int tamañoValor, int grado)
+        {
+            Grado = grado;
+            posicion = Posicion;
+            Padre = padre;
+            FixedSize = 2 + (2 * 11) + (Grado) + (Grado * 11) + (Grado - 1) + ((Grado - 1) * tamañoValor);
+            FixedSizeText = FixedSize;
+            hijos = Hijos;
+
+            Valores = valores;
+        }        
     }
 }

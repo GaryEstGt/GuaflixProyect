@@ -9,33 +9,27 @@ namespace Biblioteca
 {
     public class BWriter<T> where T : IFixedSizeText
     {
-        public static void EscribirRaiz(string archivo, string raiz)
+        public static void EscribirRaiz(string ruta, int raiz)
         {
-            EvaluarRuta(@"C:\Arboles\");            
-            using (var fs = new FileStream(@"C:\Arboles\" + archivo, FileMode.OpenOrCreate))
+            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    fs.Write(ByteGenerator.ConvertToBytes(raiz + "\n"), 0, 12);
-                }                
+                fs.Write(ByteGenerator.ConvertToBytes(raiz.ToString("00000000000;-0000000000") + "\n"), 0, 12);
             }
         }
-        public static void EscribirPosicionDisponible(string archivo, string posicion)
-        {
-            EvaluarRuta(@"C:\Arboles\");
-            using (var fs = new FileStream(@"C:\Arboles\" + archivo, FileMode.OpenOrCreate))
+        public static void EscribirPosicionDisponible(string ruta, int posicion)
+        {            
+            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
                 fs.Seek(12, SeekOrigin.Begin);
-                fs.Write(ByteGenerator.ConvertToBytes(posicion + "\n"), 0, 12);
+                fs.Write(ByteGenerator.ConvertToBytes(posicion.ToString("00000000000;-0000000000") + "\n"), 0, 12);
             }
         }
-        public static void EscribirNodo(string archivo, string nodo, int posicion)
-        {
-            EvaluarRuta(@"C:\Arboles\");
-            using (var fs = new FileStream(@"C:\Arboles\" + archivo, FileMode.OpenOrCreate))
+        public static void EscribirNodo(string ruta, NodoB<T> nodo, int posicion)
+        {            
+            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
                 fs.Seek(24 + ((posicion - 1) * NodoB<T>.FixedSize), SeekOrigin.Begin);
-                fs.Write(ByteGenerator.ConvertToBytes(nodo), 0, NodoB<T>.FixedSize);            
+                fs.Write(ByteGenerator.ConvertToBytes(nodo.ToFixedSizeString()), 0, NodoB<T>.FixedSize);            
             }
         }
 
