@@ -194,11 +194,33 @@ namespace Guaflix.Controllers
 
         // POST: Configuracion/Create
         [HttpPost]
-        public ActionResult CargarArchivo(FormCollection collection)
+        public ActionResult CargarArchivo(HttpPostedFileBase postedFile)
         {
             try
             {
-                // TODO: Add insert logic here
+                string todoeltexto = "";
+                string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    int contLinea = 0;
+                    string csvData = System.IO.File.ReadAllText(filePath);
+                    /* foreach (string row in csvData.Split('}'))
+                     {*/
+
+
+                    /* if (!string.IsNullOrEmpty(row))
+                     {*/
+                    Usuario[] usuariosCargados = JsonConvert.DeserializeObject<Usuario[]>(csvData);
+                }
 
                 return RedirectToAction("IndexUser");
             }

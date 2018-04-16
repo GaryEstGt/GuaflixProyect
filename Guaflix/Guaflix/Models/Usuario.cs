@@ -19,7 +19,7 @@ namespace Guaflix.Models
         public int edad { get; set; }
         [Required]
         [Display(Name = "Usuario")]
-        public string userName { get; set; }
+        public string username { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 4)]
         [DataType(DataType.Password)]

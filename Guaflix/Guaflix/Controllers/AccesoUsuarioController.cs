@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Biblioteca;
 using Guaflix.Models;
+using System.Web.Security;
 
 namespace Guaflix.Controllers
 {
@@ -36,18 +37,7 @@ namespace Guaflix.Controllers
             {
                 string redirigir = "LogIn";
                 
-                    if(collection["password"].ToString().Count() < 6)
-                    {
-                        TempData["alertMessage"] = "la contraseña debe tener al menos 8 carácteres";
-                        redirigir = "Create";
-                    }
-                    else
-                    {
-                        if (collection["password"] == collection["Cpassword"])
-                        {
-                            redirigir = "LogIn";
-                        }
-                    }
+                 
                 return RedirectToAction(redirigir);
             }
             catch
@@ -143,6 +133,27 @@ namespace Guaflix.Controllers
             }
             catch(Exception e)
             {                
+                return View();
+            }
+        }
+        public ActionResult LogOut()
+        {
+            return View();
+        }
+
+        // POST: AccesoUsuario/Delete/5
+        [HttpPost]
+        public ActionResult LogOut(FormCollection collection)
+        {
+            try
+            {
+                FormsAuthentication.SignOut();
+                Session.Abandon();
+
+                return RedirectToAction("LogIn");
+            }
+            catch
+            {
                 return View();
             }
         }
