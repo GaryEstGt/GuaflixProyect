@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Guaflix.Models.Usuario>
 
 @{
-    ViewBag.Title = "IndexUser";
+    ViewBag.Title = "Configuracion Usuario";
 }
 
-<h2>IndexUser</h2>
+<h2>Configuracion Usuario</h2>
 
 <p>
     @Html.ActionLink("Registrar Nuevo", "CreateUser")
@@ -59,9 +59,11 @@
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
-@Html.ActionLink("Opciones", "Opciones")
+
 }
 
 </table>
-
+<div>
+    @Html.ActionLink("Opciones", "Opciones")
+</div>
  

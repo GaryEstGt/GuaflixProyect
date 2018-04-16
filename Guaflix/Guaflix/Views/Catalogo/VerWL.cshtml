@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<Guaflix.Models.Pelicula>
 
 @{
-    ViewBag.Title = "VerWL";
+    ViewBag.Title = "Ver WacthList";
 }
 
-<h2>VerWL</h2>
+<h2>Ver WacthList</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.tipo)
+            @Html.DisplayNameFor(model => model.type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.añoLanzamiento)
+            @Html.DisplayNameFor(model => model.year)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.genero)
+            @Html.DisplayNameFor(model => model.genre)
         </th>
         <th></th>
     </tr>
@@ -26,16 +26,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.tipo)
+            @Html.DisplayFor(modelItem => item.type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.nombre)
+            @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.añoLanzamiento)
+            @Html.DisplayFor(modelItem => item.year)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.genero)
+            @Html.DisplayFor(modelItem => item.genre)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

@@ -112,9 +112,9 @@ namespace Guaflix.Controllers
             {                
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
-                if (collection["Nombre"] == "admin")
+                if (collection["userName"] == "admin")
                 {
-                    if (collection["Contraseña"] == "admin")
+                    if (collection["password"] == "admin")
                     {
                         redir="Configuracion";
                     }
