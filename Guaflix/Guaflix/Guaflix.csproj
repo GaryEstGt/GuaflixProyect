@@ -285,6 +285,7 @@
     <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\Catalogo\buscar.cshtml" />
     <Content Include="Views\Catalogo\VerWL.cshtml" />
+    <Content Include="Views\AccesoUsuario\LogOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
