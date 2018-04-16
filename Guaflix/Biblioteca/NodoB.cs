@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Biblioteca
 {
-    class NodoB<T> : IFixedSizeText where T : IFixedSizeText
+    public class NodoB<T> : IFixedSizeText where T : IFixedSizeText
     {
         public int Grado { get; set; }
         public int posicion { get; set; }
         public int Padre { get; set; }
         public List<int> hijos { get; set; }
-        public List<T> Valores { get; set; }
+        public T[] Valores { get; set; }
         public static int FixedSize { get; set; }
         public int FixedSizeText { get; set; }
         public string ToFixedSizeString()
@@ -30,11 +30,16 @@ namespace Biblioteca
             {
                 if (Valores[i] != null)
                 {
-                    FixedString += $"{Valores[i].ToFixedSizeString()}|";
+                    FixedString += $"{Valores[i].ToFixedSizeString()}";
                 }
                 else
+                {                    
+                    FixedString += $"{Valores[0].ToNullFormat()}";
+                }
+
+                if (i != Grado - 2)
                 {
-                    FixedString += $"{Valores[0].ToNullFormat()}|";
+                    FixedString += "|";
                 }
             }
 
@@ -56,11 +61,10 @@ namespace Biblioteca
             posicion = int.MinValue;
             Padre = int.MinValue;
             hijos = new List<int>(Grado);
-            Valores = new List<T>(Grado);
-
+            Valores = new T[Grado];            
             for (int i = 0; i < Grado; i++)
             {
-                hijos.Add(int.MinValue);
+                hijos.Add(int.MinValue);                         
             }
         }
     }

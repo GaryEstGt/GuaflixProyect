@@ -10,12 +10,12 @@ namespace Biblioteca
     {
         public static byte[] ConvertToBytes(string text)
         {
-            return Encoding.UTF32.GetBytes(text);
+            return Encoding.UTF8.GetBytes(text);
         }
 
         public static string ConvertToString(byte[] bytes)
         {
-            return Encoding.UTF32.GetString(bytes);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }

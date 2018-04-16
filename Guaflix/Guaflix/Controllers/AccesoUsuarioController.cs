@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Biblioteca;
+using Guaflix.Models;
 
 namespace Guaflix.Controllers
 {
@@ -107,7 +109,7 @@ namespace Guaflix.Controllers
         public ActionResult LogIn(FormCollection collection)
         {
             try
-            {
+            {                
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
                 if (collection["Nombre"] == "admin")
@@ -125,7 +127,7 @@ namespace Guaflix.Controllers
                 return RedirectToAction(redir2,redir);
             }
             catch
-            {
+            {                
                 return View();
             }
         }

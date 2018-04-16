@@ -10,6 +10,6 @@ namespace Biblioteca
     {
         int FixedSizeText { get; set; }
         string ToFixedSizeString();
-        string ToNullFormat();
+        string ToNullFormat();        
     }
 }
