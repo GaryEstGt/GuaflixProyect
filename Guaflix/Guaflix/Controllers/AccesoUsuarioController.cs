@@ -100,18 +100,18 @@ namespace Guaflix.Controllers
         {
             try
             {
-                Pelicula peli1 = new Pelicula("Documental", "Albert Einstein", "2015", "Documental");
-                Pelicula peli2 = new Pelicula("Pelicula", "Insidious", "2013", "Terror");
-                Pelicula peli3 = new Pelicula("Pelicula", "Anastasia", "2014", "Comedia");
-                Pelicula peli4 = new Pelicula("Serie", "Zoo", "2011", "Comedia");                
-                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(5, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
-                arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli2, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli3, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli4, Pelicula.CompareByName, Pelicula.CompareByGenre);                
+                //Pelicula peli1 = new Pelicula("Documental", "Albert Einstein", "2015", "Documental");
+                //Pelicula peli2 = new Pelicula("Pelicula", "Insidious", "2013", "Terror");
+                //Pelicula peli3 = new Pelicula("Pelicula", "Anastasia", "2014", "Comedia");
+                //Pelicula peli4 = new Pelicula("Serie", "Zoo", "2011", "Comedia");                
+                //ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(5, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
+                //arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli2, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli3, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli4, Pelicula.CompareByName, Pelicula.CompareByGenre);                
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
-                if (collection["userName"] == "admin")
+                if (collection["username"] == "admin")
                 {
                     if (collection["password"] == "admin")
                     {
@@ -144,6 +144,28 @@ namespace Guaflix.Controllers
                 FormsAuthentication.SignOut();
                 Session.Abandon();
 
+                return RedirectToAction("LogIn");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult EleccionGrado()
+        {
+            return View();
+        }
+
+        // POST: AccesoUsuario/Create
+        [HttpPost]
+        public ActionResult EleccionGrado(FormCollection collection)
+        {
+            try
+            {
+                int filterValue = Convert.ToInt32(collection["filter"]);
+                string direccion = collection["filter2"];
+                string nombre = collection["filter3"];
+                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
                 return RedirectToAction("LogIn");
             }
             catch

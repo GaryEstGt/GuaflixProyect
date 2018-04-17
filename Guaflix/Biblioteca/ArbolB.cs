@@ -222,7 +222,7 @@ namespace Biblioteca
 
                     InsertarValor(nodo.Valores[Grado / 2], ref padre, comparador1, comparador2);
 
-                    NodoB<T> hermano = new NodoB<T>(PosicionDisponible, nodo.Padre, null,)
+                   // NodoB<T> hermano = new NodoB<T>(PosicionDisponible, nodo.Padre, null,)
 
                     BWriter<T>.EscribirNodo(RutaArbol, padre, padre.posicion);
                 }
