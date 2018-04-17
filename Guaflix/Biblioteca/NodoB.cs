@@ -74,6 +74,6 @@ namespace Biblioteca
             hijos = Hijos;
 
             Valores = valores;
-        }        
+        }                
     }
 }

@@ -51,27 +51,30 @@ namespace Biblioteca
                 if (posicionNodo != int.MaxValue)
                 {
                     NodoB<T> Nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+                    InsertarValor(valor, ref Nodo, comparador1, comparador2);
+                    BWriter<T>.EscribirNodo(RutaArbol, Nodo, Nodo.posicion);
 
-                    int i;
-                    for (i = 0; i < Nodo.Valores.Length; i++)
+                    if (Nodo.Valores[Grado - 1] != null)
                     {
-                        if (Nodo.Valores[i] == null)
-                        {
-                            Nodo.Valores[i] = valor;
-                            break;
-                        }
-                    }
-
-                    Nodo.Valores = OrdenarValores(Nodo.Valores, comparador1, comparador2);
-
-                    if (i == Nodo.Valores.Length)
-                    {
-
+                        
                     }
                 }                
             }
         }
 
+        public void InsertarValor(T valor, ref NodoB<T> nodo, Delegate comparador1, Delegate comparador2)
+        {
+            for (int i = 0; i < nodo.Valores.Length; i++)
+            {
+                if (nodo.Valores[i] == null)
+                {
+                    nodo.Valores[i] = valor;
+                    break;
+                }
+            }
+
+            OrdenarValores(ref nodo, comparador1, comparador2);
+        }
         public NodoB<T> GuardarNodo(string nodo)
         {
             string[] datosNodo = nodo.Split('|');
@@ -90,33 +93,43 @@ namespace Biblioteca
                 if (valor != null)
                 {
                     valores[x] = valor;
-                }                
+                }
+                x++;             
             }            
 
             NodoB<T> Nodo = new NodoB<T>(int.Parse(datosNodo[0]), int.Parse(datosNodo[1]), hijos, valores, TamañoT, Grado);
             return Nodo;
         }
 
-        public T[] OrdenarValores(T[] Valores,Delegate comparador1, Delegate comparador2)
+        public void OrdenarValores(ref NodoB<T> nodo,Delegate comparador1, Delegate comparador2)
         {
-            for (int i = 0; i < Valores.Length - 1; i++)
+            for (int i = 0; i < nodo.Valores.Length - 1; i++)
             {
-                if (Valores[i] != null && Valores[i+1] != null)
+                if (nodo.Valores[i] != null)
                 {
-                    if ((int)comparador1.DynamicInvoke(Valores[i], Valores[i + 1]) == 1)
+                    for (int j = i; j < nodo.Valores.Length; j++)
                     {
-
-                    }
-                    else if ((int)comparador1.DynamicInvoke(Valores[i], Valores[i + 1]) == 0)
-                    {
-                        if ((int)comparador2.DynamicInvoke(Valores[i], Valores[i + 1]) == 1)
+                        if (nodo.Valores[j] != null)
                         {
-
+                            if ((int)comparador1.DynamicInvoke(nodo.Valores[i], nodo.Valores[j]) == 1)
+                            {
+                                T temp = nodo.Valores[j];
+                                nodo.Valores[j] = nodo.Valores[i];
+                                nodo.Valores[i] = temp;
+                            }
+                            else if ((int)comparador1.DynamicInvoke(nodo.Valores[i], nodo.Valores[j]) == 0)
+                            {
+                                if ((int)comparador2.DynamicInvoke(nodo.Valores[i], nodo.Valores[j]) == 1)
+                                {
+                                    T temp = nodo.Valores[j];
+                                    nodo.Valores[j] = nodo.Valores[i];
+                                    nodo.Valores[i] = temp;
+                                }
+                            }
                         }
                     }
                 }                
-            }
-            return null;
+            }            
         }
 
         public bool VerSiEsHoja(NodoB<T> nodo)
@@ -193,6 +206,27 @@ namespace Biblioteca
                 return hijo;            
             else
                 return nodo.posicion;
+        }
+
+        public void SepararNodo(NodoB<T> nodo, Delegate comparador1, Delegate comparador2)
+        {
+            if (nodo.Valores[Grado - 1] != null)
+            {
+                if (nodo.Padre == int.MinValue)
+                {
+
+                }
+                else
+                {
+                    NodoB<T> padre = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, nodo.Padre));
+
+                    InsertarValor(nodo.Valores[Grado / 2], ref padre, comparador1, comparador2);
+
+                    NodoB<T> hermano = new NodoB<T>(PosicionDisponible, nodo.Padre, null, )
+
+                    BWriter<T>.EscribirNodo(RutaArbol, padre, padre.posicion);
+                }
+            }
         }
     }
 }
