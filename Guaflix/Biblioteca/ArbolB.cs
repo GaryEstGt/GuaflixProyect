@@ -204,8 +204,8 @@ namespace Biblioteca
                         }
                         else if ((int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 1 && i == nodo.GetCantidadValores() - 1)
                         {
-                            hijo = i + 1;                        
-                    }
+                            hijo = i + 1;
+                        }
                     }
 
                     if (hijo != int.MinValue)
@@ -370,26 +370,129 @@ namespace Biblioteca
 
             if (Raiz != int.MinValue)
             {
-                //int posicionNodo = BuscarValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, Raiz)), valor);
-            }
-            
-        }   
-        
-        //public int BuscarValor(NodoB<T> nodo, T valor)
-        //{
-        //    int posicion = int.MinValue;
-        //    bool encontrado = false;
+                int posicionNodo = BuscarPosicionValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, Raiz)), valor);
 
-        //    for (int i = 0; i < nodo.Valores.Length - 1; i++)
-        //    {
-        //        if (nodo.Valores[i] != null)
-        //        {
-        //            if ((int) comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
-        //            {
-        //                posicion = nodo.posicion;
-        //            }
-        //        }
-        //    }
-        //}
+                if (posicionNodo != int.MaxValue)
+                {
+                    NodoB<T> nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+                    int posicionValor = int.MinValue;
+
+                    for (int i = 0; i < nodo.Valores.Length - 1; i++)
+                    {
+                        if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
+                        {
+                            nodo.Valores[i] = default(T);
+                            posicionValor = i;  
+                            break;
+                        }
+                    }
+
+                    if (nodo.GetCantidadValores() < ((Grado - 1) / 2))
+                    {
+
+                    }
+                }        
+            }            
+        }
+
+        public int BuscarPosicionValor(NodoB<T> nodo, T valor)
+        {
+            int posicion = int.MinValue;
+            int hijo = int.MinValue;            
+
+            for (int i = 0; i < nodo.Valores.Length - 1; i++)
+            {
+                if (nodo.Valores[i] != null)
+                {
+                    if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
+                    {
+                        posicion = nodo.posicion;                        
+                    }
+                }
+            }
+
+            if (posicion == int.MinValue)
+            {
+                for (int i = 0; i < nodo.Valores.Length - 1; i++)
+                {
+                    if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == -1)
+                    {
+                        hijo = i;
+                    }
+                    else if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 1 && i == nodo.GetCantidadValores() - 1)
+                    {
+                        hijo = i + 1;
+                    }
+                    else if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0)
+                    {
+                        if ((int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == -1)
+                        {
+                            hijo = i;
+                        }
+                        else if ((int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 1 && i == nodo.GetCantidadValores() - 1)
+                        {
+                            hijo = i + 1;
+                        }
+                    }
+
+                    if (hijo != int.MinValue)
+                        break;
+                }
+
+                return BuscarPosicionValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, hijo)), valor);
+            }
+            else if (VerSiEsHoja(nodo) && posicion == int.MinValue)
+            {
+                posicion = int.MaxValue;
+                return posicion;
+            }
+            else
+            {
+                return posicion;
+            }
+        }
+
+        public T ReturnValor(T valor)
+        {
+            Raiz = BReader<T>.LeerRaiz(RutaArbol);
+            if (Raiz != int.MinValue)
+            {
+                T objeto = default(T);
+                int posicionNodo = BuscarPosicionValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, Raiz)), valor);
+
+                if (posicionNodo != int.MaxValue)
+                {
+                    NodoB<T> nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+
+                    for (int i = 0; i < nodo.Valores.Length - 1; i++)
+                    {
+                        if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
+                        {
+                            objeto = nodo.Valores[i];
+                            break;
+                        }
+                    }
+                }                
+
+                return objeto;
+            }
+            else
+            {
+                return default(T);
+            }            
+        }
+
+        public void ToList(ref List<T> lista, int posicionNodo, int posicionValor)
+        {
+            if (posicionNodo != int.MinValue)
+            {
+                NodoB<T> raiz = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+
+                ToList(ref lista, raiz.hijos[posicionValor], 0);
+                lista.Add(raiz.Valores[posicionValor]);
+                posicionValor++;
+                ToList(ref lista, raiz.hijos[posicionValor], 0);
+            }            
+        }
     }
 }
