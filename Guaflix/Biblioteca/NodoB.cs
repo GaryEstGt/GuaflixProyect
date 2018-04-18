@@ -11,7 +11,7 @@ namespace Biblioteca
         public int Grado { get; set; }
         public int posicion { get; set; }
         public int Padre { get; set; }
-        public List<int> hijos { get; set; }
+        public int[] hijos { get; set; }
         public T[] Valores { get; set; }        
         public static int FixedSize { get; set; }
         public int FixedSizeText { get; set; }
@@ -55,17 +55,17 @@ namespace Biblioteca
             FixedSizeText = FixedSize;
             posicion = Posicion;
             Padre = int.MinValue;
-            hijos = new List<int>(Grado);
+            hijos = new int[Grado + 1];            
             Valores = new T[Grado];            
 
-            for (int i = 0; i < Grado; i++)
+            for (int i = 0; i < Grado + 1; i++)
             {
-                hijos.Add(int.MinValue);                         
+                hijos[i] = int.MinValue;                         
             }
         }
 
-        public NodoB(int Posicion, int padre, List<int> Hijos, T[] valores, int tamañoValor, int grado)
-        {
+        public NodoB(int Posicion, int padre, int[] Hijos, T[] valores, int tamañoValor, int grado)
+        {            
             Grado = grado;
             posicion = Posicion;
             Padre = padre;
@@ -75,5 +75,20 @@ namespace Biblioteca
 
             Valores = valores;
         }                
+
+        public int GetCantidadValores()
+        {
+            int cantidad = 0;
+
+            for (int i = 0; i < hijos.Length - 1; i++)
+            {
+                if (Valores[i] != null)
+                {
+                    cantidad++;
+                }
+            }
+
+            return cantidad;
+        }
     }
 }
