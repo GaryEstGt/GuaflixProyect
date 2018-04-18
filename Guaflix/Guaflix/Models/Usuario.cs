@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Biblioteca;
 
 namespace Guaflix.Models
 {
-    public class Usuario
+    public class Usuario : IFixedSizeText
     {
         [Required]
         [Display(Name = "Nombre")]
@@ -31,5 +32,59 @@ namespace Guaflix.Models
         [Display(Name = "Confirmar Contraseña")]
         public string Cpassword { get; set; }
 
+        public static Func<string, Usuario> ConvertToUsuario = ConvertirUsuario;
+        public static Func<string> ToNullUsuario = ToNullFormat;
+
+        public int FixedSizeText { get; set; }
+        public static int FixedSize { get; set; }
+        public Usuario(string Nombre, string Apellido, int Edad, string User, string Pass, string CPass)
+        {
+            nombre = Nombre;
+            apellido = Apellido;
+            edad = Edad;
+            username = User;
+            password = Pass;
+            Cpassword = CPass;
+
+            FixedSize = 116;
+            FixedSizeText = FixedSize;
+        }
+        public string ToFixedSizeString()
+        {
+            return $"{string.Format("{0,-20}", nombre)}/{string.Format("{0,-20}", apellido)}/{edad.ToString("00000000000;-0000000000")}/{string.Format("{0,-20}", username)}/{string.Format("{0,-20}", password)}/{string.Format("{0,-20}", Cpassword)}";
+        }
+
+        public static string ToNullFormat()
+        {
+            return $"                    /                    /           /                    /                    /                    ";
+        }
+
+        public static Usuario ConvertirUsuario(string texto)
+        {
+            bool vacio = true;
+            string[] datos = texto.Split('/');
+            for (int i = 0; i < datos.Length; i++)
+            {
+                if (datos[i].Trim() != "")
+                {
+                    vacio = false;
+                }
+            }
+
+            if (!vacio)
+            {
+                Usuario usuario = new Usuario(datos[0].Trim(), datos[1].Trim(), int.Parse(datos[2].Trim()), datos[3].Trim(), datos[4].Trim(), datos[5].Trim());
+                return usuario;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static Comparison<Usuario> CompareByName = delegate (Usuario p1, Usuario p2)
+        {
+            return p1.nombre.CompareTo(p2.nombre);
+        };        
     }
 }
