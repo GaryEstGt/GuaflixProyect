@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Biblioteca;
 using Guaflix.Models;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace Guaflix.Controllers
 {
@@ -14,6 +15,7 @@ namespace Guaflix.Controllers
         // GET: AccesoUsuario
         public ActionResult Index()
         {
+            
             return View();
         }
 
@@ -35,6 +37,21 @@ namespace Guaflix.Controllers
         {
             try
             {
+                Usuario temp = new Usuario();
+                temp.nombre = collection["nombre"];
+                temp.apellido= collection["apellido"];
+               temp.edad=Convert.ToInt32(collection["edad"]);
+                temp.username= collection["username"];
+                temp.password=collection["password"];
+                if (Data.instance.datosUsuarios == string.Empty)
+                {
+                    Data.instance.datosUsuarios = JsonConvert.SerializeObject(temp);
+                }
+                else
+                {
+                    Data.instance.datosUsuarios += ","+ JsonConvert.SerializeObject(temp);
+                }
+                Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
                 string redirigir = "LogIn";
                 
                  
