@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Biblioteca;
 using Guaflix.Models;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace Guaflix.Controllers
 {
@@ -14,6 +15,7 @@ namespace Guaflix.Controllers
         // GET: AccesoUsuario
         public ActionResult Index()
         {
+            
             return View();
         }
 
@@ -35,6 +37,21 @@ namespace Guaflix.Controllers
         {
             try
             {
+                Usuario temp = new Usuario();
+                temp.nombre = collection["nombre"];
+                temp.apellido= collection["apellido"];
+               temp.edad=Convert.ToInt32(collection["edad"]);
+                temp.username= collection["username"];
+                temp.password=collection["password"];
+                if (Data.instance.datosUsuarios == string.Empty)
+                {
+                    Data.instance.datosUsuarios = JsonConvert.SerializeObject(temp);
+                }
+                else
+                {
+                    Data.instance.datosUsuarios += ","+ JsonConvert.SerializeObject(temp);
+                }
+                Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
                 string redirigir = "LogIn";
                 
                  
@@ -142,7 +159,7 @@ namespace Guaflix.Controllers
                 arbol.Insertar(peli19, Pelicula.CompareByName, Pelicula.CompareByGenre);
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
-                if (collection["userName"] == "admin")
+                if (collection["username"] == "admin")
                 {
                     if (collection["password"] == "admin")
                     {
@@ -175,6 +192,28 @@ namespace Guaflix.Controllers
                 FormsAuthentication.SignOut();
                 Session.Abandon();
 
+                return RedirectToAction("LogIn");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult EleccionGrado()
+        {
+            return View();
+        }
+
+        // POST: AccesoUsuario/Create
+        [HttpPost]
+        public ActionResult EleccionGrado(FormCollection collection)
+        {
+            try
+            {
+                int filterValue = Convert.ToInt32(collection["filter"]);
+                string direccion = collection["filter2"];
+                string nombre = collection["filter3"];
+                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
                 return RedirectToAction("LogIn");
             }
             catch

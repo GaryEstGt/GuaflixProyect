@@ -183,7 +183,7 @@ namespace Biblioteca
             if (!hoja && !repite)
             {
                 for (int i = 0; i < nodo.Valores.Length - 1; i++)
-                {                    
+                {
                     if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == -1)
                     {
                         hijo = i;
@@ -200,24 +200,24 @@ namespace Biblioteca
                         }
                         else if ((int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 1 && i == nodo.GetCantidadValores() - 1)
                         {
-                            hijo = i + 1;
-                        }
+                            hijo = i + 1;                        
+                    }
                     }
 
                     if (hijo != int.MinValue)
                         break;
-                }                                                                
+                }
             }
             else if (repite)
             {
                 hijo = int.MaxValue;
             }
-            
+
             if (hijo == int.MaxValue)            
                 return hijo;            
             else if(!hoja)
                 return BuscarPosicion(valor, GuardarNodo(BReader<T>.LeerNodo(RutaArbol, nodo.hijos[hijo])), comparador1, comparador2);
-            else 
+            else
                 return nodo.posicion;
         }
 
@@ -250,7 +250,7 @@ namespace Biblioteca
                     if (!VerSiEsHoja(nodo))
                     {
                         RepartirHijos(nodo, hermano, posicionMedia);
-                    }
+                }
 
                     BWriter<T>.EscribirNodo(RutaArbol, hermano, hermano.posicion);
                     BWriter<T>.EscribirNodo(RutaArbol, nodo, nodo.posicion);
@@ -320,7 +320,7 @@ namespace Biblioteca
                     if (padre.hijos[Grado] != int.MinValue)                    
                         SepararNodo(padre, comparador1, comparador2);                    
                     else                    
-                        BWriter<T>.EscribirNodo(RutaArbol, padre, padre.posicion);                    
+                    BWriter<T>.EscribirNodo(RutaArbol, padre, padre.posicion);
                     
                 }
             }
@@ -386,6 +386,6 @@ namespace Biblioteca
                     }
                 }
             }
-        }                    
+        }
     }
 }

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "EleccionGrado";
+}
+
+<h2>Seleccione el grado del arbol</h2>
+@using (Html.BeginForm("EleccionGrado", "AccesoUsuario", FormMethod.Post))
+{
+    @Html.TextBox("filter")
+<h2>Seleccione donde guardará el arbol</h2>
+    @Html.TextBox("filter2")
+    <h2>Seleccione nombre del árbol</h2>
+    @Html.TextBox("filter3")
+   <p> <input type="submit" name="Aceptar" value="Dir" /></p>
+}
+
