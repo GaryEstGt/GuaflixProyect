@@ -16,7 +16,7 @@ namespace Guaflix
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "AccesoUsuario", action = "EleccionGrado", id = UrlParameter.Optional }
+                defaults: new { controller = "AccesoUsuario", action = "LogInAdmin", id = UrlParameter.Optional }
             );
         }
     }

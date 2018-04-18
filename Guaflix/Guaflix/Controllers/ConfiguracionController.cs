@@ -30,11 +30,13 @@ namespace Guaflix.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Opciones(string submitButton)
+        public ActionResult Opciones(string submitButton, HttpPostedFileBase postedFile, FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
+                int filterValue = Convert.ToInt32(collection["filter"]);
+                string direccion = Path.GetDirectoryName(postedFile.FileName);
                 string red = "Index";
                 if (submitButton == "Editar Usuarios")
                 {
@@ -87,7 +89,22 @@ namespace Guaflix.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                Usuario temp = new Usuario();
+                temp.nombre = collection["nombre"];
+                temp.apellido = collection["apellido"];
+                temp.edad = Convert.ToInt32(collection["edad"]);
+                temp.username = collection["username"];
+                temp.password = collection["password"];
+
+                if (Data.instance.datosUsuarios == string.Empty)
+                {
+                    Data.instance.datosUsuarios = JsonConvert.SerializeObject(temp);
+                }
+                else
+                {
+                    Data.instance.datosUsuarios += "," + JsonConvert.SerializeObject(temp);
+                }
+                Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
 
                 return RedirectToAction("IndexUser");
             }
@@ -210,7 +227,6 @@ namespace Guaflix.Controllers
                     filePath = path + Path.GetFileName(postedFile.FileName);
                     string extension = Path.GetExtension(postedFile.FileName);
                     postedFile.SaveAs(filePath);
-
                     int contLinea = 0;
                     string csvData = System.IO.File.ReadAllText(filePath);
                     /* foreach (string row in csvData.Split('}'))

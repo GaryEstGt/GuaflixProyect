@@ -288,7 +288,7 @@
     <Content Include="Views\Catalogo\buscar.cshtml" />
     <Content Include="Views\Catalogo\VerWL.cshtml" />
     <Content Include="Views\AccesoUsuario\LogOut.cshtml" />
-    <Content Include="Views\AccesoUsuario\EleccionGrado.cshtml" />
+    <Content Include="Views\AccesoUsuario\LogInAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

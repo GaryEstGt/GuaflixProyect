@@ -43,21 +43,22 @@ namespace Guaflix.Controllers
                temp.edad=Convert.ToInt32(collection["edad"]);
                 temp.username= collection["username"];
                 temp.password=collection["password"];
-                if (Data.instance.datosUsuarios == string.Empty)
-                {
-                    Data.instance.datosUsuarios = JsonConvert.SerializeObject(temp);
-                }
-                else
-                {
-                    Data.instance.datosUsuarios += ","+ JsonConvert.SerializeObject(temp);
-                }
-                Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
+                
+                 if (Data.instance.datosUsuarios == string.Empty)
+                    {
+                        Data.instance.datosUsuarios = JsonConvert.SerializeObject(temp);
+                    }
+                 else
+                    {
+                        Data.instance.datosUsuarios += "," + JsonConvert.SerializeObject(temp);
+                    }
+                    Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);          
                 string redirigir = "LogIn";
                 
                  
                 return RedirectToAction(redirigir);
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
@@ -137,26 +138,26 @@ namespace Guaflix.Controllers
                 Pelicula peli18 = new Pelicula("P", "G", "5", "R");
                 Pelicula peli19 = new Pelicula("P", "H", "5", "M");
 
-                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(4, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
-                arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli2, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli3, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli4, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli5, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli6, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli7, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli8, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli9, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli10, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli11, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli12, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli13, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli14, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli15, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli16, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli17, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli18, Pelicula.CompareByName, Pelicula.CompareByGenre);
-                arbol.Insertar(peli19, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(4, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
+                //arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli2, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli3, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli4, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli5, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli6, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli7, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli8, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli9, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli10, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli11, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli12, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli13, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli14, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli15, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli16, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli17, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli18, Pelicula.CompareByName, Pelicula.CompareByGenre);
+                //arbol.Insertar(peli19, Pelicula.CompareByName, Pelicula.CompareByGenre);
                 string redir = "Configuracion";
                 string redir2 = "Opciones";
                 if (collection["username"] == "admin")
@@ -210,13 +211,47 @@ namespace Guaflix.Controllers
         {
             try
             {
-                int filterValue = Convert.ToInt32(collection["filter"]);
+               
                 string direccion = collection["filter2"];
                 string nombre = collection["filter3"];
-                ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
+               // ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
                 return RedirectToAction("LogIn");
             }
             catch
+            {
+                return View();
+            }
+        }
+        public ActionResult LogInAdmin()
+        {
+            return View();
+        }
+
+        // POST: AccesoUsuario/Delete/5
+        [HttpPost]
+        public ActionResult LogInAdmin(FormCollection collection)
+        {
+            try
+            {
+
+                string redir = "Configuracion";
+                string redir2 = "Opciones";
+                if (collection["username"] == "admin")
+                {
+                    if (collection["password"] == "admin")
+                    {
+                        redir = "Configuracion";
+                    }
+                }
+                else
+                {
+                    TempData["Mensaje"] = "Debe ingresar el administrador para usar la aplicación";
+                    redir2 = "LogInAdmin";
+                    redir = "AccesoUsuario";
+                }
+                return RedirectToAction(redir2, redir);
+            }
+            catch (Exception e)
             {
                 return View();
             }
