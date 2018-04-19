@@ -35,6 +35,7 @@ namespace Guaflix
         public ArbolB<Pelicula> genderDocumental;
         public ArbolB<Usuario> Usuarios;
         public EscribirJson escritor = new EscribirJson();
+        public Usuario usuarioenSesion;
     }
 }
    

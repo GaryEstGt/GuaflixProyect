@@ -69,7 +69,25 @@ namespace Guaflix.Controllers
         {
             try
             {
-               
+                Pelicula peli = new Pelicula(collection["type"],collection["name"],collection["year"],collection["genre"]);
+                if(peli.type=="Pelicula"||peli.type=="pelicula"|| peli.type == "Película" || peli.type == "película" || peli.type == "PELICULA" || peli.type == "PELÍCULA")
+                {
+                    Data.instance.namePelicula.Insertar(peli);
+                    Data.instance.yearPelicula.Insertar(peli);
+                    Data.instance.genderPelicula.Insertar(peli);
+                }
+                else if (peli.type == "Show" || peli.type == "Serie" || peli.type == "serie" || peli.type == "show")
+                {
+                    Data.instance.nameShow.Insertar(peli);
+                    Data.instance.yearShow.Insertar(peli);
+                    Data.instance.genderShow.Insertar(peli);
+                }
+                else
+                {
+                    Data.instance.nameDocumental.Insertar(peli);
+                    Data.instance.yearDocumental.Insertar(peli);
+                    Data.instance.genderDocumental.Insertar(peli);
+                }
 
                 return RedirectToAction("Index");
             }
@@ -186,6 +204,27 @@ namespace Guaflix.Controllers
                     /* if (!string.IsNullOrEmpty(row))
                      {*/
                     Pelicula[] pelis = JsonConvert.DeserializeObject<Pelicula[]>(csvData);
+                    for (int i = 0; i < pelis.Length-1; i++)
+                    {
+                        if (pelis[i].type == "Pelicula" || pelis[i].type == "pelicula" || pelis[i].type == "Película" || pelis[i].type == "película" || pelis[i].type == "PELICULA" || pelis[i].type == "PELÍCULA")
+                        {
+                            Data.instance.namePelicula.Insertar(pelis[i]);
+                            Data.instance.yearPelicula.Insertar(pelis[i]);
+                            Data.instance.genderPelicula.Insertar(pelis[i]);
+                        }
+                        else if (pelis[i].type == "Show" || pelis[i].type == "Serie" || pelis[i].type == "serie" || pelis[i].type == "show")
+                        {
+                            Data.instance.nameShow.Insertar(pelis[i]);
+                            Data.instance.yearShow.Insertar(pelis[i]);
+                            Data.instance.genderShow.Insertar(pelis[i]);
+                        }
+                        else
+                        {
+                            Data.instance.nameDocumental.Insertar(pelis[i]);
+                            Data.instance.yearDocumental.Insertar(pelis[i]);
+                            Data.instance.genderDocumental.Insertar(pelis[i]);
+                        }
+                    }
                 }
                         
                        

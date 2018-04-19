@@ -92,8 +92,20 @@ namespace Guaflix.Controllers
                 return View();
             }
         }
-        public ActionResult buscar()
+        public ActionResult buscar(FormCollection collection,string submitButton)
         {
+            if (submitButton == "Nombre")
+            {
+
+            }
+            else if(submitButton == "Año")
+            {
+
+            }
+            else
+            {
+
+            }
             List<Pelicula> peli = new List<Pelicula>();
             return View(peli);
         }
@@ -101,6 +113,26 @@ namespace Guaflix.Controllers
         // POST: Catologo/Create
         [HttpPost]
         public ActionResult buscar(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult AgregarWL()
+        {
+            return View();
+        }
+
+        // POST: Catologo/Create
+        [HttpPost]
+        public ActionResult AgregarWL(int id,FormCollection collection)
         {
             try
             {

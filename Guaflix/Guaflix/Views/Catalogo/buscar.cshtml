@@ -6,14 +6,16 @@
 }
 
 <h2>buscar</h2>
-
-@using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
+@using (Html.BeginForm("buscar", "Catalogo", FormMethod.Post))
 {
-    @Html.TextBox("filter")
-
     <input type="submit" name="tipobuscar" value="Nombre" />
-        <input type="submit" name="tipobuscar" value="Año" />
+    <input type="submit" name="tipobuscar" value="Año" />
         <input type="submit" name="tipobuscar" value="Genero" />
+        <h4>Primer Parametro</h4>
+        <p>@Html.TextBox("filter")</p>
+        <h4>Segundo Parametro</h4>
+        <p>@Html.TextBox("filter2")</p>
+
 }
 <p>
 
