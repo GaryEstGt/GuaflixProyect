@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using Biblioteca;
 
 namespace Guaflix.Controllers
 {
@@ -36,8 +38,8 @@ namespace Guaflix.Controllers
         }
         public ActionResult VerWL()
         {
-            List<Pelicula> peli = new List<Pelicula>();
-            return View(peli);
+            Data.instance.usuarioenSesion.WatchList.ToList().Sort(Pelicula.CompareByName);
+            return View(Data.instance.usuarioenSesion.WatchList.ToList());
         }
 
         // GET: Catologo/Create
@@ -85,17 +87,41 @@ namespace Guaflix.Controllers
         }
 
         // GET: Catologo/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string tipo, string nombre, string año)
         {
             return View();
         }
 
         // POST: Catologo/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string tipo, string nombre, string año, FormCollection collection)
         {
             try
-            {
+            {                
+                Pelicula peli = new Pelicula(tipo, nombre, año, "");
+                List<Pelicula> lista = new List<Pelicula>();
+                switch (tipo)
+                {
+                    case "Show":
+                        lista = Data.instance.usuarioenSesion.WatchList.Eliminar(Data.instance.nameShow.ReturnValor(peli));                        
+                        System.IO.File.Delete(Data.instance.usuarioenSesion.WatchList.RutaArbol);                        
+                        break;
+                    case "Pelicula":
+                        lista = Data.instance.usuarioenSesion.WatchList.Eliminar(Data.instance.namePelicula.ReturnValor(peli));
+                        System.IO.File.Delete(Data.instance.namePelicula.RutaArbol);
+                        break;
+                    case "Documental":
+                        lista = Data.instance.usuarioenSesion.WatchList.Eliminar(Data.instance.nameDocumental.ReturnValor(peli));
+                        System.IO.File.Delete(Data.instance.nameDocumental.RutaArbol);
+                        break;
+                }
+
+                Data.instance.usuarioenSesion.WatchList = new ArbolB<Pelicula>(Data.instance.GradoArboles, Data.instance.RutaArboles + "WatchLists\\", Data.instance.usuarioenSesion.username + ".watchlist", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    Data.instance.usuarioenSesion.WatchList.Insertar(lista[i]);
+                }
                 // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
@@ -155,7 +181,7 @@ namespace Guaflix.Controllers
                 return View();
             }
         }
-        public ActionResult AgregarWL()
+        public ActionResult AgregarWL(string tipo, string name, string year)
         {
             return View();
         }

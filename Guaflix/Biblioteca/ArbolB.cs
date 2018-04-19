@@ -364,9 +364,11 @@ namespace Biblioteca
             nodo.Valores[posicionMedia] = default(T);
         }
 
-        public void Eliminar(T valor)
+        public List<T> Eliminar(T valor)
         {
-
+            List<T> listaTemp = ToList();
+            listaTemp.Remove(listaTemp.Find(x => (int)comparador1.DynamicInvoke(valor, x) == 0 && (int)comparador2.DynamicInvoke(valor, x) == 0));
+            return listaTemp;
             //Raiz = BReader<T>.LeerRaiz(RutaArbol);
 
             //if (Raiz != int.MinValue)

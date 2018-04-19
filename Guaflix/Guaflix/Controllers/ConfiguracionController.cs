@@ -14,13 +14,27 @@ namespace Guaflix.Controllers
         // GET: Configuracion
         public ActionResult Index()
         {
-            List<Pelicula> pelis = new List<Pelicula>();
-            return View(pelis);
+            List<Pelicula> peli = new List<Pelicula>();
+            foreach (var item in Data.instance.namePelicula.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameShow.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameDocumental.ToList())
+            {
+                peli.Add(item);
+            }
+            peli.Sort(Pelicula.CompareByName);
+            return View(peli);
         }
 
         public ActionResult IndexUser()
         {
-            List<Usuario> usuarios = new List<Usuario>();
+            List<Usuario> usuarios = Data.instance.Usuarios.ToList();
+            usuarios.Sort(Usuario.CompareByUserName);
             return View(usuarios);
         }
         public ActionResult Opciones()
@@ -209,7 +223,7 @@ namespace Guaflix.Controllers
                     /* if (!string.IsNullOrEmpty(row))
                      {*/
                     Pelicula[] pelis = JsonConvert.DeserializeObject<Pelicula[]>(csvData);
-                    for (int i = 0; i < pelis.Length-1; i++)
+                    for (int i = 0; i < pelis.Length; i++)
                     {
                         if (pelis[i].type == "Pelicula" || pelis[i].type == "pelicula" || pelis[i].type == "Película" || pelis[i].type == "película" || pelis[i].type == "PELICULA" || pelis[i].type == "PELÍCULA")
                         {
