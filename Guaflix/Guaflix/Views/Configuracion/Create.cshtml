@@ -17,7 +17,28 @@
         <div class="form-group">
             @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
+                 @{ 
+                     var listado = new List<SelectListItem>()
+                     {
+                         new SelectListItem()
+                         {
+                                Text="Película",
+                                Value="1"
+                     },
+                         new SelectListItem()
+                         {
+                                Text="Show",
+                                Value="2"
+                     },
+                          new SelectListItem()
+                         {
+                                Text="Documental",
+                                Value="3"
+                     }
+
+                 };
+                 }
+                @Html.DropDownList("Elección", listado)
                 @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
             </div>
         </div>
