@@ -195,15 +195,22 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccesoUsuarioController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="EscribirJson.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pelicula.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -267,9 +274,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\AccesoUsuario\Create.cshtml" />
+    <Content Include="Views\AccesoUsuario\LogIn.cshtml" />
+    <Content Include="Views\Configuracion\Opciones.cshtml" />
+    <Content Include="Views\Configuracion\IndexUser.cshtml" />
+    <Content Include="Views\Configuracion\Create.cshtml" />
+    <Content Include="Views\Configuracion\CrearArchivo.cshtml" />
+    <Content Include="Views\Configuracion\CreateUser.cshtml" />
+    <Content Include="Views\Configuracion\CargarArchivo.cshtml" />
+    <Content Include="Views\Configuracion\Delete.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
+    <Content Include="Views\Catalogo\Index.cshtml" />
+    <Content Include="Views\Catalogo\buscar.cshtml" />
+    <Content Include="Views\Catalogo\VerWL.cshtml" />
+    <Content Include="Views\AccesoUsuario\LogOut.cshtml" />
+    <Content Include="Views\AccesoUsuario\LogInAdmin.cshtml" />
+    <Content Include="Views\Configuracion\InicioApp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -278,6 +302,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Biblioteca\Biblioteca.csproj">
+      <Project>{c9a0bf47-6a8d-4a2e-82f9-e0d5ec68f1a2}</Project>
+      <Name>Biblioteca</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

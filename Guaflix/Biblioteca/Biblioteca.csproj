@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Arbol BAsterisco.cs" />
     <Compile Include="ArbolAVL.cs" />
+    <Compile Include="ArbolB.cs" />
     <Compile Include="ArbolBB.cs" />
     <Compile Include="BReader.cs" />
     <Compile Include="BWriter.cs" />

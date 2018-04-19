@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "InicioApp";
+}
+
+<h2>InicioApp</h2>
+    @using (Html.BeginForm("InicioApp", "Configuracion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+      <p><h6> Grado </h6></p>
+    @Html.TextBox("filter")
+        <p><h6> Dirección </h6></p>
+    @Html.TextBox("filter2")
+    <p><input type = "submit" name = "submitButton" value = "Iniciar App"/></p>
+    }

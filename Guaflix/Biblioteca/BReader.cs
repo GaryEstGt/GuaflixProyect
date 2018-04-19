@@ -7,30 +7,39 @@ using System.Threading.Tasks;
 
 namespace Biblioteca
 {
-    class BReader<T> where T : IFixedSizeText
+    public class BReader<T> where T : IFixedSizeText
     {
-        public static void LeerEncabezado(string ruta, ref int raiz, ref int nuevaPosicion)
+        public static int LeerRaiz(string ruta)
+        {
+            var buffer = new byte[12];
+            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
+            {
+                fs.Read(buffer, 0, 12);
+            }
+
+            return int.Parse(ByteGenerator.ConvertToString(buffer));
+        }
+        public static int LeerPosicionDisponible(string ruta)
+        {            
+            var buffer = new byte[12];
+            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
+            {
+                fs.Seek(12, SeekOrigin.Begin);
+                fs.Read(buffer, 0, 12);
+            }
+
+            return int.Parse(ByteGenerator.ConvertToString(buffer));
+        }
+        public static string LeerNodo(string ruta, int posicion)
         {
             var buffer = new byte[NodoB<T>.FixedSize];
             using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
             {
+                fs.Seek(24 + ((posicion - 1) * NodoB<T>.FixedSize), SeekOrigin.Begin);
                 fs.Read(buffer, 0, NodoB<T>.FixedSize);
             }
 
-            raiz = int.Parse(ByteGenerator.ConvertToString(buffer));
-
-            buffer = new byte[NodoB<T>.FixedSize];
-            using (var fs = new FileStream(ruta, FileMode.OpenOrCreate))
-            {
-                fs.Seek(12, SeekOrigin.Begin);
-                fs.Read(buffer, 0, NodoB<T>.FixedSize);
-            }
-
-            nuevaPosicion = int.Parse(ByteGenerator.ConvertToString(buffer));
-        }
-        public static void Leer(string ruta, int posicion)
-        {
-
+            return ByteGenerator.ConvertToString(buffer);
         }
     }
 }
