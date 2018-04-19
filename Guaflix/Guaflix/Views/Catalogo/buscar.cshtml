@@ -8,14 +8,14 @@
 <h2>buscar</h2>
 @using (Html.BeginForm("buscar", "Catalogo", FormMethod.Post))
 {
-    <input type="submit" name="tipobuscar" value="Nombre" />
-    <input type="submit" name="tipobuscar" value="Año" />
-        <input type="submit" name="tipobuscar" value="Genero" />
+   @Html.DropDownList("Eleccion", new SelectList(ViewBag.SelectedList, "Value", "Text"), new { @class = "form-control" })
         <h4>Primer Parametro</h4>
         <p>@Html.TextBox("filter")</p>
         <h4>Segundo Parametro</h4>
         <p>@Html.TextBox("filter2")</p>
-
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
 }
 <p>
 

@@ -60,6 +60,11 @@ namespace Guaflix.Controllers
         // GET: Configuracion/Create
         public ActionResult Create()
         {
+            var searchList = new List<SelectListItem>();
+            searchList.Add(new SelectListItem {Value="Pelicula",Text="Pelicula" });
+            searchList.Add(new SelectListItem { Value = "Show", Text = "Show" });
+            searchList.Add(new SelectListItem { Value = "Documental", Text = "Documental" });
+            ViewBag.SelectedList = searchList;
             return View();
         }
 
@@ -69,14 +74,14 @@ namespace Guaflix.Controllers
         {
             try
             {
-                Pelicula peli = new Pelicula(collection["type"],collection["name"],collection["year"],collection["genre"]);
-                if(peli.type=="Pelicula"||peli.type=="pelicula"|| peli.type == "Película" || peli.type == "película" || peli.type == "PELICULA" || peli.type == "PELÍCULA")
+                Pelicula peli = new Pelicula(collection["Eleccion"],collection["name"],collection["year"],collection["genre"]);
+                if(peli.type=="Pelicula")
                 {
                     Data.instance.namePelicula.Insertar(peli);
                     Data.instance.yearPelicula.Insertar(peli);
                     Data.instance.genderPelicula.Insertar(peli);
                 }
-                else if (peli.type == "Show" || peli.type == "Serie" || peli.type == "serie" || peli.type == "show")
+                else if (peli.type == "Show")
                 {
                     Data.instance.nameShow.Insertar(peli);
                     Data.instance.yearShow.Insertar(peli);

@@ -92,20 +92,14 @@ namespace Guaflix.Controllers
                 return View();
             }
         }
-        public ActionResult buscar(FormCollection collection,string submitButton)
+        public ActionResult buscar()
         {
-            if (submitButton == "Nombre")
-            {
-
-            }
-            else if(submitButton == "Año")
-            {
-
-            }
-            else
-            {
-
-            }
+            var searchList = new List<SelectListItem>();
+            searchList.Add(new SelectListItem { Value = "Nombre", Text = "Nombre" });
+            searchList.Add(new SelectListItem { Value = "Año", Text = "Año" });
+            searchList.Add(new SelectListItem { Value = "Genero", Text = "Genero" });
+            ViewBag.SelectedList = searchList;
+           
             List<Pelicula> peli = new List<Pelicula>();
             return View(peli);
         }
@@ -114,8 +108,20 @@ namespace Guaflix.Controllers
         [HttpPost]
         public ActionResult buscar(FormCollection collection)
         {
-            try
+            try { 
+                 if (collection["Eleccion"] == "Nombre")
             {
+
+            }
+            else if (collection["Eleccion"] == "Año")
+            {
+
+            }
+            else
+            {
+
+            }
+            
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
