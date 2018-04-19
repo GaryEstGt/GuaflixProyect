@@ -31,7 +31,7 @@ namespace Guaflix.Models
         [Compare("password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         [Display(Name = "Confirmar Contraseña")]
         public string Cpassword { get; set; }
-
+        public ArbolB<Pelicula> WatchList;
         public static Func<string, Usuario> ConvertToUsuario = ConvertirUsuario;
         public static Func<string> ToNullUsuario = ToNullFormat;
 

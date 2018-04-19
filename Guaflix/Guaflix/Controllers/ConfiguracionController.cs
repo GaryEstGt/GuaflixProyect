@@ -35,13 +35,13 @@ namespace Guaflix.Controllers
             try
             {
                 // TODO: Add insert logic here
-                int filterValue = Convert.ToInt32(collection["filter"]);
-                string direccion = Path.GetDirectoryName(postedFile.FileName);
+              
                 string red = "Index";
                 if (submitButton == "Editar Usuarios")
                 {
                     red = "IndexUser";
                 }
+                
 
                 return RedirectToAction(red);
             }
@@ -89,12 +89,7 @@ namespace Guaflix.Controllers
         {
             try
             {
-                Usuario temp = new Usuario();
-                temp.nombre = collection["nombre"];
-                temp.apellido = collection["apellido"];
-                temp.edad = Convert.ToInt32(collection["edad"]);
-                temp.username = collection["username"];
-                temp.password = collection["password"];
+                Usuario temp = new Usuario(collection["nombre"], collection["apellido"], Convert.ToInt32(collection["edad"]), collection["username"], collection["password"], collection["password"]);
 
                 if (Data.instance.datosUsuarios == string.Empty)
                 {
@@ -105,7 +100,7 @@ namespace Guaflix.Controllers
                     Data.instance.datosUsuarios += "," + JsonConvert.SerializeObject(temp);
                 }
                 Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
-
+                Data.instance.Usuarios.Insertar(temp);
                 return RedirectToAction("IndexUser");
             }
             catch
@@ -239,6 +234,48 @@ namespace Guaflix.Controllers
                 }
 
                 return RedirectToAction("IndexUser");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult InicioApp()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult InicioApp(string submitButton,FormCollection collection)
+        {
+            try
+            {
+                string redireccionarAccion="";
+                string redireccionarController="";
+                if (submitButton == "Iniciar App")
+                {
+                    int filterValue = Convert.ToInt32(collection["filter"]);
+                    string direccion = collection["filter2"]+"/";
+                    Data.instance.namePelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, @direccion, "nameMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.nameShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.nameDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.Usuarios = new Biblioteca.ArbolB<Usuario>(filterValue, direccion, "Usuarios", Usuario.FixedSize,Usuario.ConvertToUsuario, Usuario.ToNullUsuario, Usuario.CompareByName, Usuario.CompareByName);
+
+                    redireccionarAccion = "LogIn";
+                    redireccionarController = "AccesoUsuario";
+                }else
+                {
+                    redireccionarAccion = "Opciones";
+                    redireccionarController = "Configuracion";
+                }
+
+                return RedirectToAction(redireccionarAccion,redireccionarController);
             }
             catch
             {

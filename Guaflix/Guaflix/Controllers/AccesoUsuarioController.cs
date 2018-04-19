@@ -37,12 +37,7 @@ namespace Guaflix.Controllers
         {
             try
             {
-                Usuario temp = new Usuario();
-                temp.nombre = collection["nombre"];
-                temp.apellido= collection["apellido"];
-               temp.edad=Convert.ToInt32(collection["edad"]);
-                temp.username= collection["username"];
-                temp.password=collection["password"];
+                Usuario temp = new Usuario(collection["nombre"], collection["apellido"], Convert.ToInt32(collection["edad"]), collection["username"], collection["password"], collection["password"]);
                 
                  if (Data.instance.datosUsuarios == string.Empty)
                     {
@@ -52,7 +47,10 @@ namespace Guaflix.Controllers
                     {
                         Data.instance.datosUsuarios += "," + JsonConvert.SerializeObject(temp);
                     }
-                    Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);          
+                    Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
+                     Data.instance.Usuarios.Insertar(temp);
+                Pelicula peli1 = new Pelicula("D", "A", "1", "D");
+                Data.instance.nameDocumental.Insertar(peli1);
                 string redirigir = "LogIn";
                 
                  
@@ -118,25 +116,25 @@ namespace Guaflix.Controllers
         {
             try
             {
-                Pelicula peli1 = new Pelicula("D", "A", "1", "D");
-                Pelicula peli2 = new Pelicula("P", "I", "2", "T");
-                Pelicula peli3 = new Pelicula("P", "A", "3", "C");
-                Pelicula peli4 = new Pelicula("S", "Z", "4", "C");
-                Pelicula peli5 = new Pelicula("P", "A", "5", "A");
-                Pelicula peli6 = new Pelicula("P", "C", "5", "F");
-                Pelicula peli7 = new Pelicula("P", "T", "5", "A");
-                Pelicula peli8 = new Pelicula("P", "D", "5", "R");
-                Pelicula peli9 = new Pelicula("P", "K", "5", "R");
-                Pelicula peli10 = new Pelicula("P", "X", "5", "M");
-                Pelicula peli11 = new Pelicula("D", "M", "1", "D");
-                Pelicula peli12 = new Pelicula("P", "L", "2", "T");
-                Pelicula peli13 = new Pelicula("P", "B", "3", "C");
-                Pelicula peli14 = new Pelicula("S", "V", "4", "C");
-                Pelicula peli15 = new Pelicula("P", "Y", "5", "A");
-                Pelicula peli16 = new Pelicula("P", "W", "5", "F");
-                Pelicula peli17 = new Pelicula("P", "F", "5", "A");
-                Pelicula peli18 = new Pelicula("P", "G", "5", "R");
-                Pelicula peli19 = new Pelicula("P", "H", "5", "M");
+                //Pelicula peli1 = new Pelicula("D", "A", "1", "D");
+                //Pelicula peli2 = new Pelicula("P", "I", "2", "T");
+                //Pelicula peli3 = new Pelicula("P", "A", "3", "C");
+                //Pelicula peli4 = new Pelicula("S", "Z", "4", "C");
+                //Pelicula peli5 = new Pelicula("P", "A", "5", "A");
+                //Pelicula peli6 = new Pelicula("P", "C", "5", "F");
+                //Pelicula peli7 = new Pelicula("P", "T", "5", "A");
+                //Pelicula peli8 = new Pelicula("P", "D", "5", "R");
+                //Pelicula peli9 = new Pelicula("P", "K", "5", "R");
+                //Pelicula peli10 = new Pelicula("P", "X", "5", "M");
+                //Pelicula peli11 = new Pelicula("D", "M", "1", "D");
+                //Pelicula peli12 = new Pelicula("P", "L", "2", "T");
+                //Pelicula peli13 = new Pelicula("P", "B", "3", "C");
+                //Pelicula peli14 = new Pelicula("S", "V", "4", "C");
+                //Pelicula peli15 = new Pelicula("P", "Y", "5", "A");
+                //Pelicula peli16 = new Pelicula("P", "W", "5", "F");
+                //Pelicula peli17 = new Pelicula("P", "F", "5", "A");
+                //Pelicula peli18 = new Pelicula("P", "G", "5", "R");
+                //Pelicula peli19 = new Pelicula("P", "H", "5", "M");
 
                 //ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(4, @"C:\Arboles\", "prueba.showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
                 //arbol.Insertar(peli1, Pelicula.CompareByName, Pelicula.CompareByGenre);
@@ -169,8 +167,26 @@ namespace Guaflix.Controllers
                 }
                 else
                 {
-                    redir = "Catalogo";
                     redir2 = "Index";
+                    redir = "Catalogo";
+                    //Usuario user = new Usuario("","",0,collection["username"],collection["password"],collection["password"]);
+                    //if (Data.instance.Usuarios.ReturnValor(user) != null)
+                    //{
+                    //    if(Data.instance.Usuarios.ReturnValor(user).password== collection["password"])
+                    //    {
+                    //        redir = "catalogo";
+                    //    }
+                    //    else
+                    //    {
+                    //        TempData["Mensaje"] = "Contraseña equivocada";
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    TempData["Mensaje"] = "Usuario equivocado";
+                    //    redir2 = "LogIn";
+                    //    redir = "AccesoUsuario";
+                    //}
                 }
                 return RedirectToAction(redir2,redir);
             }
@@ -214,7 +230,7 @@ namespace Guaflix.Controllers
                
                 string direccion = collection["filter2"];
                 string nombre = collection["filter3"];
-               // ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
+               //ArbolB<Pelicula> arbol = new ArbolB<Pelicula>(filterValue, @direccion+"/", nombre+".showtree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullPelicula);
                 return RedirectToAction("LogIn");
             }
             catch
@@ -235,7 +251,7 @@ namespace Guaflix.Controllers
             {
 
                 string redir = "Configuracion";
-                string redir2 = "Opciones";
+                string redir2 = "InicioApp";
                 if (collection["username"] == "admin")
                 {
                     if (collection["password"] == "admin")
