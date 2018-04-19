@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Biblioteca;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Guaflix.Models
 {
@@ -19,7 +20,7 @@ namespace Guaflix.Models
         public string genre { get; set; }
 
         public static Func<string, Pelicula> ConvertToPelicula = ConvertirPelicula;
-        public static Func<string> ToNullPelicula = ToNullFormat;  
+        public static Func<string> ToNullPelicula = ToNullFormat;
 
         public Pelicula(string Tipo, string Nombre, string Año, string Genero)
         {
@@ -32,7 +33,7 @@ namespace Guaflix.Models
         public static int FixedSize { get { return 93; }}
         public string ToFixedSizeString()
         {
-            return $"{string.Format("{0,-20}",type)}/{string.Format("{0,-40}", name)}/{string.Format("{0,-10}", year)}/{string.Format("{0,-20}", genre)}";
+            return $"{string.Format("{0,-20}", type)}/{string.Format("{0,-40}", name)}/{string.Format("{0,-10}", year)}/{string.Format("{0,-20}", genre)}";
         }
 
         public static string ToNullFormat()
@@ -60,7 +61,7 @@ namespace Guaflix.Models
             else
             {
                 return null;
-            }                        
+            }
         }
 
         public static Comparison<Pelicula> CompareByName = delegate (Pelicula p1, Pelicula p2)
@@ -77,6 +78,13 @@ namespace Guaflix.Models
         {
             return p1.year.CompareTo(p2.year);
         };
+        private readonly List<Pelicula> pelicula;
+        
+        public int SelectedFlavorId { get; set; }
 
+        public IEnumerable<SelectListItem> FlavorItems
+        {
+            get { return new SelectList(pelicula, "type", "Name"); }
+        }
     }
 }
