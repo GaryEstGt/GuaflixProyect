@@ -14,14 +14,27 @@ namespace Guaflix.Controllers
         // GET: Configuracion
         public ActionResult Index()
         {
-            List<Pelicula> pelis = new List<Pelicula>();
-            return View(pelis);
+            List<Pelicula> peli = new List<Pelicula>();
+            foreach (var item in Data.instance.namePelicula.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameShow.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameDocumental.ToList())
+            {
+                peli.Add(item);
+            }
+            peli.Sort(Pelicula.CompareByName);
+            return View(peli);
         }
 
         public ActionResult IndexUser()
         {
-            List<Usuario> usuarios = new List<Usuario>();
-            return View(usuarios);
+            Data.instance.Usuarios.ToList().Sort();
+            return View(Data.instance.Usuarios.ToList());
         }
         public ActionResult Opciones()
         {
