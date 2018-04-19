@@ -482,17 +482,28 @@ namespace Biblioteca
             }            
         }
 
-        public void ToList(ref List<T> lista, int posicionNodo, int posicionValor)
+        public void ToList(ref List<T> lista, int posicionNodo)
         {
             if (posicionNodo != int.MinValue)
             {
-                NodoB<T> raiz = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+                NodoB<T> nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
 
-                ToList(ref lista, raiz.hijos[posicionValor], 0);
-                lista.Add(raiz.Valores[posicionValor]);
-                posicionValor++;
-                ToList(ref lista, raiz.hijos[posicionValor], 0);
-            }            
+                for (int i = 0; i < nodo.Valores.Length; i++)
+                {
+                    if (nodo.Valores[i] != null)
+                    {
+                        lista.Add(nodo.Valores[i]);
+                    }
+                }
+
+                for (int i = 0; i < nodo.hijos.Length - 1; i++)
+                {
+                    ToList(ref lista, nodo.hijos[i]);
+                }
+            }
+            
+
+                    
         }
     }
 }
