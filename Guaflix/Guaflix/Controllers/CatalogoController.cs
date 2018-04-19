@@ -162,10 +162,23 @@ namespace Guaflix.Controllers
 
         // POST: Catologo/Create
         [HttpPost]
-        public ActionResult AgregarWL(int id,FormCollection collection)
+        public ActionResult AgregarWL(string tipo, string name, string year, FormCollection collection)
         {
             try
             {
+                Pelicula peli = new Pelicula(tipo, name, year, "");
+                switch (tipo)
+                {
+                    case "Show":
+                        Data.instance.usuarioenSesion.WatchList.Insertar(Data.instance.nameShow.ReturnValor(peli));
+                        break;
+                    case "Pelicula":
+                        Data.instance.usuarioenSesion.WatchList.Insertar(Data.instance.namePelicula.ReturnValor(peli));
+                        break;
+                    case "Documental":
+                        Data.instance.usuarioenSesion.WatchList.Insertar(Data.instance.nameDocumental.ReturnValor(peli));
+                        break;
+                }
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");

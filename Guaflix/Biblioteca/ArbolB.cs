@@ -366,33 +366,34 @@ namespace Biblioteca
 
         public void Eliminar(T valor)
         {
-            Raiz = BReader<T>.LeerRaiz(RutaArbol);
 
-            if (Raiz != int.MinValue)
-            {
-                int posicionNodo = BuscarPosicionValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, Raiz)), valor);
+            //Raiz = BReader<T>.LeerRaiz(RutaArbol);
 
-                if (posicionNodo != int.MaxValue)
-                {
-                    NodoB<T> nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
-                    int posicionValor = int.MinValue;
+            //if (Raiz != int.MinValue)
+            //{
+            //    int posicionNodo = BuscarPosicionValor(GuardarNodo(BReader<T>.LeerNodo(RutaArbol, Raiz)), valor);
 
-                    for (int i = 0; i < nodo.Valores.Length - 1; i++)
-                    {
-                        if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
-                        {
-                            nodo.Valores[i] = default(T);
-                            posicionValor = i;  
-                            break;
-                        }
-                    }
+            //    if (posicionNodo != int.MaxValue)
+            //    {
+            //        NodoB<T> nodo = GuardarNodo(BReader<T>.LeerNodo(RutaArbol, posicionNodo));
+            //        int posicionValor = int.MinValue;
 
-                    if (nodo.GetCantidadValores() < ((Grado - 1) / 2))
-                    {
+            //        for (int i = 0; i < nodo.Valores.Length - 1; i++)
+            //        {
+            //            if ((int)comparador1.DynamicInvoke(valor, nodo.Valores[i]) == 0 && (int)comparador2.DynamicInvoke(valor, nodo.Valores[i]) == 0)
+            //            {
+            //                nodo.Valores[i] = default(T);
+            //                posicionValor = i;  
+            //                break;
+            //            }
+            //        }
 
-                    }
-                }        
-            }            
+            //        if (nodo.GetCantidadValores() < ((Grado - 1) / 2))
+            //        {
+
+            //        }
+            //    }        
+            //}            
         }
 
         public int BuscarPosicionValor(NodoB<T> nodo, T valor)

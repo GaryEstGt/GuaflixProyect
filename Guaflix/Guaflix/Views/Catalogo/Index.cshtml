@@ -42,7 +42,7 @@
             @Html.DisplayFor(modelItem => item.genre)
         </td>
         <td>
-            @Html.ActionLink("Agregar a WachtLst", "AgregarWL", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Agregar a WachtLst", "AgregarWL", new { tipo=item.type,name=item.name,year=item.year }) |
         </td>
     </tr>
 }
