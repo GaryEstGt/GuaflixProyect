@@ -36,6 +36,7 @@ namespace Guaflix
         public ArbolB<Usuario> Usuarios;
         public EscribirJson escritor = new EscribirJson();
         public Usuario usuarioenSesion;
+        public List<Pelicula> listaBuscados = new List<Pelicula>();
     }
 }
    

@@ -13,6 +13,19 @@ namespace Guaflix.Controllers
         public ActionResult Index()
         {
             List<Pelicula> peli = new List<Pelicula>();
+            foreach (var item in Data.instance.namePelicula.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameShow.ToList())
+            {
+                peli.Add(item);
+            }
+            foreach (var item in Data.instance.nameDocumental.ToList())
+            {
+                peli.Add(item);
+            }
+            peli.Sort(Pelicula.CompareByName);
             return View(peli);
         }
 
@@ -92,30 +105,47 @@ namespace Guaflix.Controllers
                 return View();
             }
         }
-        public ActionResult buscar(FormCollection collection,string submitButton)
+        public ActionResult buscar()
         {
-            if (submitButton == "Nombre")
-            {
-
-            }
-            else if(submitButton == "Año")
-            {
-
-            }
-            else
-            {
-
-            }
-            List<Pelicula> peli = new List<Pelicula>();
-            return View(peli);
+            var searchList = new List<SelectListItem>();
+            searchList.Add(new SelectListItem { Value = "Nombre", Text = "Nombre" });
+            searchList.Add(new SelectListItem { Value = "Año", Text = "Año" });
+            searchList.Add(new SelectListItem { Value = "Genero", Text = "Genero" });
+            ViewBag.SelectedList = searchList;
+           
+            
+            return View(Data.instance.listaBuscados);
         }
 
         // POST: Catologo/Create
         [HttpPost]
         public ActionResult buscar(FormCollection collection)
         {
-            try
+            
+            try { 
+                 if (collection["Eleccion"] == "Nombre")
             {
+                    Pelicula temp = new Pelicula("", collection["filter"], collection["filter2"], "");
+                    Data.instance.listaBuscados.Add(Data.instance.namePelicula.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.nameShow.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.nameDocumental.ReturnValor(temp));
+
+                }
+            else if (collection["Eleccion"] == "Año")
+            {
+                    Pelicula temp = new Pelicula("", collection["filter2"], collection["filter"], "");
+                    Data.instance.listaBuscados.Add(Data.instance.yearPelicula.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.yearShow.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.yearDocumental.ReturnValor(temp));
+                }
+            else
+            {
+                    Pelicula temp = new Pelicula("", collection["filter2"], "", collection["filter"]);
+                    Data.instance.listaBuscados.Add(Data.instance.genderPelicula.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.genderShow.ReturnValor(temp));
+                    Data.instance.listaBuscados.Add(Data.instance.genderDocumental.ReturnValor(temp));
+                }
+            
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
