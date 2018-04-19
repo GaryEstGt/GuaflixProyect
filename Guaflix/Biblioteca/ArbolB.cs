@@ -482,6 +482,14 @@ namespace Biblioteca
             }            
         }
 
+        public List<T> ToList()
+        {
+            List<T> lista = new List<T>();
+            ToList(ref lista, BReader<T>.LeerRaiz(RutaArbol));
+
+            return lista;
+        }
+
         public void ToList(ref List<T> lista, int posicionNodo)
         {
             if (posicionNodo != int.MinValue)
@@ -500,10 +508,7 @@ namespace Biblioteca
                 {
                     ToList(ref lista, nodo.hijos[i]);
                 }
-            }
-            
-
-                    
+            }                                
         }
     }
 }
