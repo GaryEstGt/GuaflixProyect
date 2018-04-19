@@ -294,8 +294,8 @@ namespace Guaflix.Controllers
                 if (submitButton == "Iniciar App")
                 {
                     int filterValue = Convert.ToInt32(collection["filter"]);
-                    string direccion = collection["filter2"]+"/";
-                    Data.instance.namePelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, @direccion, "nameMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    string direccion = collection["filter2"] + "\\";                    
+                    Data.instance.namePelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
                     Data.instance.yearPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
                     Data.instance.genderPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
                     Data.instance.nameShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);

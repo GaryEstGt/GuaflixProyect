@@ -27,12 +27,10 @@ namespace Guaflix.Models
             type = Tipo;
             name = Nombre;
             year = Año;
-            genre = Genero;
-            FixedSize = 93;
-            FixedSizeText = FixedSize;
+            genre = Genero;            
         }
-        public int FixedSizeText { get; set; }
-        public static int FixedSize { get; set; }
+        public int FixedSizeText { get {return 93; } set {; } }
+        public static int FixedSize { get { return 93; }}
         public string ToFixedSizeString()
         {
             return $"{string.Format("{0,-20}", type)}/{string.Format("{0,-40}", name)}/{string.Format("{0,-10}", year)}/{string.Format("{0,-20}", genre)}";

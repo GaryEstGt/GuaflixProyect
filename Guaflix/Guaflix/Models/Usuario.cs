@@ -35,8 +35,8 @@ namespace Guaflix.Models
         public static Func<string, Usuario> ConvertToUsuario = ConvertirUsuario;
         public static Func<string> ToNullUsuario = ToNullFormat;
 
-        public int FixedSizeText { get; set; }
-        public static int FixedSize { get; set; }
+        public int FixedSizeText { get { return 116; } set {; } }
+        public static int FixedSize { get {return 116; }}
         public Usuario(string Nombre, string Apellido, int Edad, string User, string Pass, string CPass)
         {
             nombre = Nombre;
@@ -44,10 +44,7 @@ namespace Guaflix.Models
             edad = Edad;
             username = User;
             password = Pass;
-            Cpassword = CPass;
-
-            FixedSize = 116;
-            FixedSizeText = FixedSize;
+            Cpassword = CPass;            
         }
         public string ToFixedSizeString()
         {
