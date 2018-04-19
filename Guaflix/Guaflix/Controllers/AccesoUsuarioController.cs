@@ -47,13 +47,10 @@ namespace Guaflix.Controllers
                     {
                         Data.instance.datosUsuarios += "," + JsonConvert.SerializeObject(temp);
                     }
-                    Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
-                     Data.instance.Usuarios.Insertar(temp);
-                Pelicula peli1 = new Pelicula("D", "A", "1", "D");
-                Data.instance.nameDocumental.Insertar(peli1);
+                Data.instance.escritor.EscribirArchivo(Data.instance.datosUsuarios);
+                Data.instance.Usuarios.Insertar(temp);
                 string redirigir = "LogIn";
-                
-                 
+                                 
                 return RedirectToAction(redirigir);
             }
             catch(Exception e)
@@ -133,14 +130,24 @@ namespace Guaflix.Controllers
                     Usuario user1 = Data.instance.Usuarios.ReturnValor(user);
                     if (user1 != null)
                     {
-                        if (user1.password == collection["password"])
+                        if (user1.username == collection["username"])
                         {
-                            redir = "catalogo";
+                            if (user1.password == collection["password"])
+                            {
+                                Data.instance.usuarioenSesion = user1;
+                                Data.instance.usuarioenSesion.WatchList = new ArbolB<Pelicula>(Data.instance.GradoArboles, Data.instance.RutaArboles + "WatchLists\\", Data.instance.usuarioenSesion.username + ".watchlist", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                                redir = "catalogo";
+                            }
+                            else
+                            {
+                                TempData["Mensaje"] = "Contraseña equivocada";
+                            }
                         }
                         else
                         {
-                            TempData["Mensaje"] = "Contraseña equivocada";
-                        }
+                            TempData["Mensaje"] = "Nombre de usuario equivocado";
+                        }                        
+                        
                     }
                     else
                     {

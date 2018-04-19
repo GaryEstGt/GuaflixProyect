@@ -23,6 +23,8 @@ namespace Guaflix
             }
             set { Instance = value; }
         }
+        public int GradoArboles;
+        public string RutaArboles = "C:\\";
         public string datosUsuarios=string.Empty;
         public ArbolB<Pelicula> namePelicula;
         public ArbolB<Pelicula> yearPelicula;
