@@ -298,18 +298,20 @@ namespace Guaflix.Controllers
                 string redireccionarController="";
                 if (submitButton == "Iniciar App")
                 {
-                    int filterValue = Convert.ToInt32(collection["filter"]);
-                    string direccion = collection["filter2"] + "\\";                    
-                    Data.instance.namePelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
-                    Data.instance.yearPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
-                    Data.instance.genderPelicula = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderMovie", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
-                    Data.instance.nameShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
-                    Data.instance.yearShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
-                    Data.instance.genderShow = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderShow", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
-                    Data.instance.nameDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
-                    Data.instance.yearDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
-                    Data.instance.genderDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
-                    Data.instance.Usuarios = new Biblioteca.ArbolB<Usuario>(filterValue, direccion, "Usuarios", Usuario.FixedSize,Usuario.ConvertToUsuario, Usuario.ToNullUsuario, Usuario.CompareByUserName, Usuario.CompareByPassword);
+                    int grado = Convert.ToInt32(collection["filter"]);
+                    Data.instance.GradoArboles = grado;
+                    string direccion = collection["filter2"] + "\\";
+                    Data.instance.RutaArboles = direccion;                  
+                    Data.instance.namePelicula = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "name.MovieTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearPelicula = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "year.MovieTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderPelicula = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "gender.MovieTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.nameShow = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "name.ShowTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearShow = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "year.ShowTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderShow = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "gender.ShowTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.nameDocumental = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "name.DocumentalTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
+                    Data.instance.yearDocumental = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "year.DocumentalTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
+                    Data.instance.genderDocumental = new Biblioteca.ArbolB<Pelicula>(grado, direccion, "gender.DocumentalTree", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
+                    Data.instance.Usuarios = new Biblioteca.ArbolB<Usuario>(grado, direccion, "users.Tree", Usuario.FixedSize,Usuario.ConvertToUsuario, Usuario.ToNullUsuario, Usuario.CompareByUserName, Usuario.CompareByPassword);
 
                     redireccionarAccion = "LogIn";
                     redireccionarController = "AccesoUsuario";
