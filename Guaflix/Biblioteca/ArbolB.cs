@@ -411,7 +411,7 @@ namespace Biblioteca
                 }
             }
 
-            if (posicion == int.MinValue)
+            if (posicion == int.MinValue && !VerSiEsHoja(nodo))
             {
                 for (int i = 0; i < nodo.Valores.Length - 1; i++)
                 {

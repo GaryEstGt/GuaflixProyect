@@ -304,7 +304,7 @@ namespace Guaflix.Controllers
                     Data.instance.nameDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "nameDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByName, Pelicula.CompareByYear);
                     Data.instance.yearDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "yearDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByYear, Pelicula.CompareByName);
                     Data.instance.genderDocumental = new Biblioteca.ArbolB<Pelicula>(filterValue, direccion, "genderDocumental", Pelicula.FixedSize, Pelicula.ConvertToPelicula, Pelicula.ToNullFormat, Pelicula.CompareByGenre, Pelicula.CompareByName);
-                    Data.instance.Usuarios = new Biblioteca.ArbolB<Usuario>(filterValue, direccion, "Usuarios", Usuario.FixedSize,Usuario.ConvertToUsuario, Usuario.ToNullUsuario, Usuario.CompareByName, Usuario.CompareByName);
+                    Data.instance.Usuarios = new Biblioteca.ArbolB<Usuario>(filterValue, direccion, "Usuarios", Usuario.FixedSize,Usuario.ConvertToUsuario, Usuario.ToNullUsuario, Usuario.CompareByUserName, Usuario.CompareByPassword);
 
                     redireccionarAccion = "LogIn";
                     redireccionarController = "AccesoUsuario";

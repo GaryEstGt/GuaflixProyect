@@ -82,6 +82,14 @@ namespace Guaflix.Models
         public static Comparison<Usuario> CompareByName = delegate (Usuario p1, Usuario p2)
         {
             return p1.nombre.CompareTo(p2.nombre);
-        };        
+        };
+        public static Comparison<Usuario> CompareByUserName = delegate (Usuario p1, Usuario p2)
+        {
+            return p1.username.CompareTo(p2.username);
+        };
+        public static Comparison<Usuario> CompareByPassword = delegate (Usuario p1, Usuario p2)
+        {
+            return p1.password.CompareTo(p2.password);
+        };
     }
 }
