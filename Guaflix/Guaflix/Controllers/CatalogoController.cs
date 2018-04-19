@@ -148,7 +148,7 @@ namespace Guaflix.Controllers
             
                 // TODO: Add insert logic here
 
-                return View();
+                return RedirectToAction("buscar");
             }
             catch
             {
